@@ -27,7 +27,7 @@ def increment_sku():
             db.close()
             break
         try:
-            sku = get_sku_array(sku)
+            sku_array = get_sku_array(sku)
             sql = """INSERT INTO `Web_3dprints`.`stock`
                         (`sku`,
                         `swatch_id`,
@@ -35,11 +35,12 @@ def increment_sku():
                     VALUES
                         (%s, %s, 1)
                     ON DUPLICATE KEY UPDATE qty = qty + 1;"""
-            cursor.execute(sql, (sku["base_sku"], sku["color"]))
+            cursor.execute(sql, (sku_array["base_sku"], sku_array["color"]))
             db.commit()
             beep(1)
         except KeyError:
             beep(3)
+            easygui.msgbox(f"Invalid SKU {sku}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 """Kumpe3D Admin GUI"""
 import setup  # pylint: disable=unused-import, wrong-import-order
+import os
 import easygui
 from beepy import beep
 from increment_sku import increment_sku
@@ -8,7 +9,8 @@ from increment_sku import increment_sku
 def gui():
     """Kumpe3D Admin GUI"""
     while True:
-        image = "logo.png"
+        cur_dir = os.getcwd()
+        image = os.path.join(cur_dir, "logo.png")
         msg = "Select Program"
         choices = [
             "Increment SKU",
