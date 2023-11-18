@@ -30,9 +30,9 @@ def empty_roll():
                 UPDATE filament
                 SET
                     partial_rolls_instock = partial_rolls_instock - 1
-                WHERE manufacture_barcode = %s;
+                WHERE manufacture_barcode = %s OR swatch_id = %s;
             """
-            cursor.execute(sql, (sku))
+            cursor.execute(sql, (sku, sku))
             db.commit()
             verify_sql = """
                 SELECT
@@ -40,9 +40,9 @@ def empty_roll():
                     swatch_id
                 FROM filament
                 WHERE 1=1
-                    AND manufacture_barcode = %s
+                    AND (manufacture_barcode = %s OR swatch_id = %s)
             """
-            cursor.execute(verify_sql, sku)
+            cursor.execute(verify_sql, (sku, sku))
             filament = cursor.fetchone()
             int(filament['idfilament'])
             beep(1)
