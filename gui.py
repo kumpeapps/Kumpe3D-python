@@ -25,29 +25,33 @@ def relative_to_assets(path: str) -> Path:
 
 window = Tk()
 
-window.geometry("700x500")
+window.attributes('-fullscreen', True)
 window.configure(bg = "#10910D")
-
+width= window.winfo_screenwidth()
+height= window.winfo_screenheight()
 
 canvas = Canvas(
     window,
     bg = "#10910D",
-    height = 500,
-    width = 700,
+    height = height,
+    width = width,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
 )
 
 canvas.place(x = 0, y = 0)
+
+# image_1= background
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    350.0,
-    250.0,
+    width/2,
+    height/2,
     image=image_image_1
 )
 
+# Button_1= Production Q
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
@@ -58,12 +62,13 @@ button_1 = Button(
     relief="flat"
 )
 button_1.place(
-    x=107.0,
+    x=width/2-243,
     y=238.0,
     width=202.0,
     height=55.0
 )
 
+# Button_2= Add To Stock
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
 button_2 = Button(
@@ -74,12 +79,13 @@ button_2 = Button(
     relief="flat"
 )
 button_2.place(
-    x=391.0,
+    x=width/2+41,
     y=151.0,
     width=202.0,
     height=55.0
 )
 
+# Button_3= Open Roll
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
 button_3 = Button(
@@ -90,12 +96,13 @@ button_3 = Button(
     relief="flat"
 )
 button_3.place(
-    x=391.0,
+    x=width/2+41,
     y=64.0,
     width=202.0,
     height=55.0
 )
 
+# Button_4= Empty Roll
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
 button_4 = Button(
@@ -106,32 +113,34 @@ button_4 = Button(
     relief="flat"
 )
 button_4.place(
-    x=107.0,
+    x=width/2-243,
     y=151.0,
     width=202.0,
     height=55.0
 )
 
+# Button_5= Add Roll
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
 button_5 = Button(
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: open_roll(),
+    command=lambda: add_roll(),
     relief="flat"
 )
 button_5.place(
-    x=107.0,
+    x=width/2-243,
     y=64.0,
     width=202.0,
     height=55.0
 )
 
+# image_2= Title
 image_image_2 = PhotoImage(
     file=relative_to_assets("image_2.png"))
 image_2 = canvas.create_image(
-    350.0,
+    width/2,
     26.0,
     image=image_image_2
 )
