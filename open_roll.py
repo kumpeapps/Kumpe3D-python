@@ -8,7 +8,7 @@ from params import Params
 def open_roll():
     """Move Filament Roll from Full to Partial"""
     title = "Open Filament Roll"
-    msg = "Scan Filament SKU"
+    msg = "Scan Filament SKU to move roll from Full to Partial"
     sql_params = Params.SQL
     db = pymysql.connect(
         db=sql_params.database,

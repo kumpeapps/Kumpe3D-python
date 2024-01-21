@@ -17,7 +17,7 @@ def gui():
         image = os.path.join(cur_dir, "logo.png")
         msg = "Select Program"
         choices = [
-            "Increment SKU",
+            "Add to Stock",
             "Add Filament Roll",
             "Open Filament Roll",
             "Empty Filament Roll",
@@ -27,7 +27,7 @@ def gui():
         if program is None:
             beep(7)
             break
-        elif program == "Increment SKU":
+        elif program == "Add to Stock":
             increment_sku()
         elif program == "Add Filament Roll":
             add_roll()

@@ -8,7 +8,7 @@ from params import Params
 def empty_roll():
     """Remove Empty Roll from Partial Roll Stock"""
     title = "Empty Filament Roll"
-    msg = "Scan Filament SKU"
+    msg = "Scan Filament SKU to remove roll from partial"
     sql_params = Params.SQL
     db = pymysql.connect(
         db=sql_params.database,

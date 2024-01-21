@@ -9,7 +9,7 @@ from params import Params
 def increment_sku():
     """Increments SKU Stock Qty"""
     title = "Increment SKU Stock Qty"
-    msg = "Scan Product SKU"
+    msg = "Scan Product SKU to add to Stock"
     sql_params = Params.SQL
     db = pymysql.connect(
         db=sql_params.database,

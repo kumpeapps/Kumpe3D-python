@@ -8,7 +8,7 @@ from params import Params
 def add_roll():
     """Add's Roll to Stock"""
     title = "Add Filament Roll to Stock"
-    msg = "Scan Filament SKU"
+    msg = "Scan Filament SKU to Add Roll to Stock"
     sql_params = Params.SQL
     db = pymysql.connect(
         db=sql_params.database,
