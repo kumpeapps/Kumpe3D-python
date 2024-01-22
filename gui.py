@@ -22,6 +22,7 @@ def gui():
             "Open Filament Roll",
             "Empty Filament Roll",
             "Production Queue",
+            # "Add to Stock & Print Label",
         ]
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
@@ -37,6 +38,8 @@ def gui():
             empty_roll()
         elif program == "Production Queue":
             production_queue()
+        elif program == "Add to Stock & Print Label":
+            increment_sku(True)
         else:
             beep(3)
         print(program)

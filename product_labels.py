@@ -1,10 +1,11 @@
 import setup
 import asyncio
 from pyppeteer import launch
+import os
 
 
 async def generate_pdf(url, pdf_path):
-    browser=await launch(options={'args': ['--no-sandbox']})
+    browser = await launch(options={"args": ["--no-sandbox"]})
     page = await browser.newPage()
 
     await page.goto(url)
@@ -21,6 +22,12 @@ def generate_label(sku: str):
             "https://www.kumpe3d.com/product_labels.php?sku=" + sku,
             "label.pdf",
         )
+    )
+
+
+def print_label():
+    os.system(
+        "lp -d Product_Label_Printer -o media=50x80mm -o orientation-requested=4 label.pdf"
     )
 
 

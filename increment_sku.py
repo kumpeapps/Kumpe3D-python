@@ -4,12 +4,16 @@ import easygui
 from beepy import beep
 from helpers import get_sku_array
 from params import Params
+import product_labels as pl
 
 
-def increment_sku():
+def increment_sku(print_label: bool = False):
     """Increments SKU Stock Qty"""
     title = "Increment SKU Stock Qty"
-    msg = "Scan Product SKU to add to Stock"
+    if print_label:
+        msg = "Scan Product SKU to add to Stock & Print Product Label"
+    else:
+        msg = "Scan Product SKU to add to Stock"
     sql_params = Params.SQL
     db = pymysql.connect(
         db=sql_params.database,
@@ -37,6 +41,9 @@ def increment_sku():
                     ON DUPLICATE KEY UPDATE qty = qty + 1;"""
             cursor.execute(sql, (sku_array["base_sku"], sku_array["color"]))
             db.commit()
+            if print_label:
+                pl.generate_label(sku)
+                pl.print_label()
             beep(1)
         except KeyError:
             beep(3)
