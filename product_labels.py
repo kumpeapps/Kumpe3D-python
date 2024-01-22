@@ -1,3 +1,4 @@
+import setup
 import asyncio
 from pyppeteer import launch
 
