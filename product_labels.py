@@ -4,7 +4,7 @@ from pyppeteer import launch
 
 
 async def generate_pdf(url, pdf_path):
-    browser = await launch()
+    browser=await launch(options={'args': ['--no-sandbox']})
     page = await browser.newPage()
 
     await page.goto(url)
