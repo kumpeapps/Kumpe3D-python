@@ -22,7 +22,7 @@ def gui():
             "Open Filament Roll",
             "Empty Filament Roll",
             "Production Queue",
-            # "Add to Stock & Print Label",
+            "Add to Stock & Print Label",
         ]
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
