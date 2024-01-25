@@ -21,7 +21,7 @@ async def generate_pdf(url, pdf_path):
 def generate_label(sku: str):
     asyncio.get_event_loop().run_until_complete(
         generate_pdf(
-            "https://www.kumpe3d.com/filament_colors_card.php?sku=" + sku,
+            "https://www.kumpe3d.com/filament_colors_card.php?color_id=" + sku,
             "label.pdf",
         )
     )
