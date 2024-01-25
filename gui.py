@@ -9,6 +9,7 @@ from open_roll import open_roll
 from empty_roll import empty_roll
 from production import production_queue
 import product_labels
+import filament_colors_card as fc_card
 
 
 def gui():
@@ -25,6 +26,7 @@ def gui():
             "Production Queue",
             "Add to Stock & Print Label",
             "Print Product Label",
+            "Print Filament Colors Card",
         ]
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
@@ -44,6 +46,8 @@ def gui():
             increment_sku(True)
         elif program == "Print Product Label":
             product_labels.print_label_only()
+        elif program == "Print Filament Colors Card":
+            fc_card.print_card()
         else:
             beep(3)
         print(program)
