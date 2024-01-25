@@ -8,6 +8,7 @@ from add_roll import add_roll
 from open_roll import open_roll
 from empty_roll import empty_roll
 from production import production_queue
+import product_labels
 
 
 def gui():
@@ -23,6 +24,7 @@ def gui():
             "Empty Filament Roll",
             "Production Queue",
             "Add to Stock & Print Label",
+            "Print Stock Label",
         ]
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
@@ -40,6 +42,8 @@ def gui():
             production_queue()
         elif program == "Add to Stock & Print Label":
             increment_sku(True)
+        elif program == "Print Stock Label":
+            product_labels.print_label_only()
         else:
             beep(3)
         print(program)
