@@ -10,6 +10,7 @@ from empty_roll import empty_roll
 from production import production_queue
 import product_labels
 import filament_colors_card as fc_card
+import beta.gui as beta
 
 
 def gui():
