@@ -17,7 +17,7 @@ def gui():
     """Kumpe3D Admin GUI"""
     while True:
         cur_dir = os.getcwd()
-        image = os.path.join(cur_dir, "logo.png")
+        image = os.path.join(cur_dir, "logo.bmp")
         msg = "Select Program"
         choices = [
             "Add to Stock",
