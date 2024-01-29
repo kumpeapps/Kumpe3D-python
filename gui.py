@@ -15,6 +15,7 @@ from params import Params
 
 def gui():
     """Kumpe3D Admin GUI"""
+    beep(5)
     while True:
         cur_dir = os.getcwd()
         image = os.path.join(cur_dir, "logo.bmp")
@@ -40,7 +41,7 @@ def gui():
 
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
-            beep(7)
+            # beep(7)
             break
         elif program == "Add to Stock":
             increment_sku()
