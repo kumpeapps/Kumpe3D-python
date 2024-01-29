@@ -10,7 +10,7 @@ from empty_roll import empty_roll
 from production import production_queue
 import product_labels
 import filament_colors_card as fc_card
-import beta.gui as beta
+from params import Params
 
 
 def gui():
@@ -19,16 +19,25 @@ def gui():
         cur_dir = os.getcwd()
         image = os.path.join(cur_dir, "logo.bmp")
         msg = "Select Program"
-        choices = [
-            "Add to Stock",
-            "Add Filament Roll",
-            "Open Filament Roll",
-            "Empty Filament Roll",
-            "Production Queue",
-            "Add to Stock & Print Label",
-            "Print Product Label",
-            "Print Filament Colors Card",
-        ]
+        choices = []
+        if Params.Access.product_stock:
+            choices.append("Add to Stock")
+        if Params.Access.filament_stock:
+            choices.append("Add Filament Roll")
+            if not Params.Access.orders_desk:
+                choices.append("Open Filament Roll")
+                choices.append("Empty Filament Roll")
+        if Params.Access.production:
+            if Params.Access.print_room or Params.Access.admin:
+                choices.append("Production Queue")
+        if Params.Access.product_stock and Params.Access.print_labels:
+            choices.append("Add to Stock & Print Label")
+        if Params.Access.print_labels:
+            choices.append("Print Product Label")
+        if Params.Access.admin:
+            if not Params.Access.orders_desk:
+                choices.append("Print Filament Colors Card")
+
         program = easygui.buttonbox(msg, image=image, choices=choices)
         if program is None:
             beep(7)

@@ -11,7 +11,7 @@ def import_or_install(module, package = None):
     except ImportError:
         pip.main(['install', package])
 
-import_or_install("infisical")
+import_or_install("infisical", "infisical==1.5.0")
 import_or_install("easygui")
 import_or_install("beepy")
 import_or_install("pymysql")
