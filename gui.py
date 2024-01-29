@@ -15,7 +15,7 @@ from params import Params
 
 def gui():
     """Kumpe3D Admin GUI"""
-    beep(5)
+    # beep(5)
     while True:
         cur_dir = os.getcwd()
         image = os.path.join(cur_dir, "logo.bmp")
