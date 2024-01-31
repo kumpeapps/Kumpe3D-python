@@ -1,4 +1,9 @@
 #!/bin/bash
+vercomp(){
+   local a b IFS=. -; set -f 2>/dev/null
+#   printf a %08d $1; printf b %08d $3
+   test $a "$2" $b 2>/dev/null
+}
 
 if [ ! -f .cur_version ]; then
     echo "0" > .cur_version
@@ -13,7 +18,7 @@ fi
     echo 20
     echo 
 
-    if { echo "$cur_version"; echo "1.1"; } | sort --version-sort --check; then
+    if vercomp $cur_version < 1.2; then
         sudo apt-get update 2>/dev/null
         echo 21
         sudo apt-get install libgstreamer1.0-dev -y 2>/dev/null
@@ -46,18 +51,14 @@ fi
         echo 35
         sudo apt-get install gstreamer1.0-pulseaudio -y 2>/dev/null
         echo 40
-    else
-        echo ""
     fi
 
-    if { echo "$cur_version"; echo "1.2.0"; } | sort --version-sort --check; then
+    if vercomp $cur_version < 1.2.1; then
         if whiptail --title "Kumpe3D Kiosk Setup" --yesno "Can this kiosk print to network printers?" 8 78; then
             echo "printer_enabled=1" >> /home/kiosk/Kumpe3D-python/.env
         else
             echo "printer_enabled=0" >> /home/kiosk/Kumpe3D-python/.env
         fi
-    else
-        echo ""
     fi
 
     echo 98
