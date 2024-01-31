@@ -53,7 +53,7 @@ fi
         echo 40
     fi
 
-    if vercomp $cur_version < 1.2.1; then
+    if vercomp $cur_version < "1.2.1"; then
         if whiptail --title "Kumpe3D Kiosk Setup" --yesno "Can this kiosk print to network printers?" 8 78; then
             echo "printer_enabled=1" >> /home/kiosk/Kumpe3D-python/.env
         else
