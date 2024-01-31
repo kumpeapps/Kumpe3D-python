@@ -13,7 +13,7 @@ fi
     echo 20
     echo 
 
-    if [ "$(printf '%s\n' "1.2" "$cur_version" | sort -V | head -n1)" < "1.2" ]; then
+    if { echo "$cur_version"; echo "1.1"; } | sort --version-sort --check; then
         sudo apt-get update 2>/dev/null
         echo 21
         sudo apt-get install libgstreamer1.0-dev -y 2>/dev/null
@@ -48,7 +48,7 @@ fi
         echo 40
     fi
 
-    if [ "$(printf '%s\n' "1.2" "$cur_version" | sort -V | head -n1)" < "1.2.1" ]; then
+    if { echo "$cur_version"; echo "1.2.0"; } | sort --version-sort --check; then
         if whiptail --title "Kumpe3D Kiosk Setup" --yesno "Can this kiosk print to network printers?" 8 78; then
             echo "printer_enabled=1" >> /home/kiosk/Kumpe3D-python/.env
         else
