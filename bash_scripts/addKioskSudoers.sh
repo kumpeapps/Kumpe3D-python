@@ -1,0 +1,1 @@
+echo "kiosk     ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/kiosk
