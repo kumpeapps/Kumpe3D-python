@@ -1,4 +1,4 @@
-if [ ! -f /home/Kumpe3D-python/patches/installed.1.2.1 ]; then
+if [ ! -f /home/Kumpe3D-python/patches/installed.1_2_1 ]; then
     {
         sudo apt update
         echo 42
@@ -12,5 +12,5 @@ if [ ! -f /home/Kumpe3D-python/patches/installed.1.2.1 ]; then
     else
         echo "printer_enabled=0" >> /home/kiosk/Kumpe3D-python/.env
     fi
-    touch /home/Kumpe3D-python/patches/installed.1.2.1
+    touch /home/Kumpe3D-python/patches/installed.1_2_1
 fi
