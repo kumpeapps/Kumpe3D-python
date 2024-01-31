@@ -18,7 +18,8 @@ fi
     echo 20
     echo 
 
-    if vercomp $cur_version < 1.2; then
+    if vercomp $cur_version < "1.2"; then
+        echo "updated to 1.2" >> update.log
         sudo apt-get update 2>/dev/null
         echo 21
         sudo apt-get install libgstreamer1.0-dev -y 2>/dev/null
@@ -54,6 +55,7 @@ fi
     fi
 
     if vercomp $cur_version < "1.2.1"; then
+        echo "updated to 1.2" >> update.log
         if whiptail --title "Kumpe3D Kiosk Setup" --yesno "Can this kiosk print to network printers?" 8 78; then
             echo "printer_enabled=1" >> /home/kiosk/Kumpe3D-python/.env
         else
