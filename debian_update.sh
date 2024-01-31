@@ -52,6 +52,10 @@ fi
         touch patch.1.2
     fi
 
+    echo 98
+
+} | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 1
+
     if [ ! -f patch.1.2.1 ]; then
         echo "updated to 1.2.1" >> update.log
         if whiptail --title "Kumpe3D Kiosk Setup" --yesno "Can this kiosk print to network printers?" 8 78; then
@@ -60,8 +64,4 @@ fi
             echo "printer_enabled=0" >> /home/kiosk/Kumpe3D-python/.env
         fi
     fi
-
-    echo 98
     echo $version > .cur_version
-
-} | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 0
