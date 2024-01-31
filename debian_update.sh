@@ -3,6 +3,7 @@ if [ ! -f .cur_version ]; then
     echo "0" > .cur_version
 fi
 {
+    echo 0
     echo 5
     cd /home/kiosk/Kumpe3D-python && git pull 2>/dev/null
     echo 10
