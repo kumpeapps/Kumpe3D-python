@@ -4,7 +4,7 @@
     echo "0" > .cur_version
     fi
     echo 5
-    cd /home/kiosk/Kumpe3D-python && git update
+    cd /home/kiosk/Kumpe3D-python && git pull
     echo 10
     version=$(<.version)
     cur_version=$(<.cur_version)
