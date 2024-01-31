@@ -9,7 +9,6 @@
     version=$(<.version)
     cur_version=$(<.cur_version)
     echo 20
-    sleep 10
     cd /home/kiosk/Kumpe3D-python && git update
     echo 
 
