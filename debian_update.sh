@@ -46,6 +46,7 @@ fi
         echo 35
         sudo apt-get install gstreamer1.0-pulseaudio -y 2>/dev/null
         echo 40
+    else
     fi
 
     if { echo "$cur_version"; echo "1.2.0"; } | sort --version-sort --check; then
@@ -54,6 +55,7 @@ fi
         else
             echo "printer_enabled=0" >> /home/kiosk/Kumpe3D-python/.env
         fi
+    else
     fi
 
     echo 98
