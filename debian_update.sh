@@ -15,6 +15,8 @@ fi
     echo 10
     version=$(cat .version)
     cur_version=$(cat .cur_version)
+    echo $version >> update.log
+    echo $cur_version >> update.log
     echo 20
     echo 
 
