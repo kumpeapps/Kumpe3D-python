@@ -6,8 +6,8 @@
     echo 5
     cd /home/kiosk/Kumpe3D-python && git pull
     echo 10
-    version=$(<.version)
-    cur_version=$(<.cur_version)
+    version=$(cat .version)
+    cur_version=$(cat .cur_version)
     echo 20
     cd /home/kiosk/Kumpe3D-python && git update
     echo 
