@@ -12,7 +12,7 @@
     cd /home/kiosk/Kumpe3D-python && git update
     echo 
 
-    if [ $cur_version < 1.2]; then
+    if [ "`echo "${cur_version} < 1.2" | bc`" -eq 1 ]; then
         sudo apt-get update
         touch runupdate
         echo 30
