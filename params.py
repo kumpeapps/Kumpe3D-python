@@ -45,6 +45,16 @@ class Params:
                 "database": Params.SQL.database,
             }
 
+    class KumpeApps:
+        """KumpeApps Params"""
+
+        api_url = creds.get_secret(
+            "KA_API_URL", environment=app_env, path="/KUMPEAPPS/"
+        ).secret_value
+        api_key = creds.get_secret(
+            "KA_SSO_APIKEY", environment=app_env, path="/KUMPEAPPS/"
+        ).secret_value
+
     class Access:
         """Access Permissions"""
 
@@ -127,4 +137,3 @@ if __name__ == "__main__":
         """Error: This file is a module to be imported and has no functions
           to be ran directly."""
     )
-    print(Params.Email.username)

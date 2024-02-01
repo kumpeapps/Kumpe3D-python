@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#TODO: check for .env file and prompt setup if not exist
 if [ ! -f .cur_version ]; then
     echo "0" > .cur_version
 fi
@@ -14,10 +14,6 @@ fi
     echo $cur_version >> update.log
 } | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 1
 
-#20-40
-bash /home/kiosk/Kumpe3D-python/patches/patch_1.2.sh
-
-#41-43
-bash /home/kiosk/Kumpe3D-python/patches/patch_1.2.1.sh
-
 echo $version > .cur_version
+
+sh /home/kiosk/Kumpe3D-python/patches/patch_update.sh
