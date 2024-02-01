@@ -115,6 +115,7 @@ def main(page: ft.Page):
                     Params.Access.set_access_level("unauthenticated")
                     show_banner_click("Access Denied")
                     log_access(user_id, "Access Denied")
+            password_field.value = ""
 
         except requests.exceptions.RequestException:
             show_banner_click(
