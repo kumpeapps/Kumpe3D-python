@@ -17,3 +17,4 @@ fi
 echo $version > .cur_version
 
 sh /home/kiosk/Kumpe3D-python/patches/patch_updates.sh
+clear
