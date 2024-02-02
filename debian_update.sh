@@ -19,3 +19,7 @@ echo $version > .cur_version
 sh /home/kiosk/Kumpe3D-python/patches/patch_updates.sh
 {} | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 100
 clear
+
+if [ -f /home/kiosk/restoreguimode ]; then
+    sh /home/kiosk/Kumpe3D-python/bash_scripts/enableGUI.sh
+fi
