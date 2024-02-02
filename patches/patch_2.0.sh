@@ -1,5 +1,5 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.2.0 ]; then
-    if [! -f /home/kiosk/terminalmode ]; then
+    if [ ! -f /home/kiosk/terminalmode ]; then
         touch /home/kiosk/restoreguimode
         sh /home/kiosk/Kumpe3D-python/bash_scripts/disableGUI.sh
     fi
