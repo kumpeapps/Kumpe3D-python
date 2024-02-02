@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from gui import gui
 import logo  # pylint: disable=import-error
 from params import Params
+from ip_host import get_ip
 
 load_dotenv()
 userid = os.getenv(key="USERID", default="")
