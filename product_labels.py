@@ -1,27 +1,28 @@
 """Functions to Print Product Labels"""
+
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
 import asyncio
 import easygui
 from beepy import beep
-import pdfkit
+from pyhtml2pdf import converter
 import params
 
 
 async def generate_pdf(url, pdf_path):
     """Generate PDF from URL"""
-    options = {
-        "page-width": "3.15in",
-        "page-height": "1.97in",
-        "margin-top": "0in",
-        "margin-bottom": "0in",
-        "margin-left": "0in",
-        "margin-right": "0in",
-        "print-media-type": "",
-        "no-outline": "",
-        "disable-smart-shrinking": "",
-    }
-    pdfkit.from_url(url, pdf_path, options=options)
+    converter.convert(
+        url,
+        pdf_path,
+        print_options={
+            "marginBotton": 0,
+            "marginTop": 0,
+            "marginLeft": 0,
+            "marginRight": 0,
+            "paperHeight": 1.97,
+            "paperWidth": 3.15,
+        },
+    )
 
 
 # Run the function
