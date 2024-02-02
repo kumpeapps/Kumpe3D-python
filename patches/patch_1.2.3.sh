@@ -9,5 +9,5 @@ if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2.3 ]; then
         sudo apt-get remove google-chrome-stable -y 2>/dev/null
         echo 48
     } | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 45
-    touch /home/kiosk/Kumpe3D-python/patches/rollback.1.2.3
+    touch /home/kiosk/Kumpe3D-python/patches/installed.1.2.3
 fi
