@@ -4,20 +4,24 @@ import os
 import asyncio
 import easygui
 from beepy import beep
-from pyppeteer import launch
+import pdfkit
 import params
 
 
 async def generate_pdf(url, pdf_path):
     """Generate PDF from URL"""
-    browser = await launch(options={"args": ["--no-sandbox"]})
-    page = await browser.newPage()
-
-    await page.goto(url)
-
-    await page.pdf({"path": pdf_path, "width": "3.15in", "height": "1.97in"})
-
-    await browser.close()
+    options = {
+        "page-width": "3.15in",
+        "page-height": "1.97in",
+        "margin-top": "0in",
+        "margin-bottom": "0in",
+        "margin-left": "0in",
+        "margin-right": "0in",
+        "print-media-type": "",
+        "no-outline": "",
+        "disable-smart-shrinking": "",
+    }
+    pdfkit.from_url(url, pdf_path, options=options)
 
 
 # Run the function
