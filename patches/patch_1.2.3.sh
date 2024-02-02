@@ -6,7 +6,7 @@ if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2.3 ]; then
         sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/linux_signing_key.pub] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
         sudo apt-get update 2>/dev/null
         echo 47
-        sudo apt-get remove google-chrome-stable -y 2>/dev/null
+        sudo apt-get install google-chrome-stable -y 2>/dev/null
         echo 48
     } | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 45
     touch /home/kiosk/Kumpe3D-python/patches/installed.1.2.3
