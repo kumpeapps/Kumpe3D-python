@@ -1,6 +1,7 @@
 """Login Page V2"""
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
+import socket
 import requests
 import flet as ft
 from dotenv import load_dotenv
@@ -99,22 +100,23 @@ def main(page: ft.Page):
                 is_admin = "213" in subscriptions
                 is_basic = "214" in subscriptions
                 is_orderfiller = "215" in subscriptions
+                computername=socket.gethostname()
                 if is_admin:
                     Params.Access.set_access_level("admin")
-                    log_access(user_id, "Access Granted (admin)")
+                    log_access(user_id, f"/{computername}/granted/admin")
                     gui()
                 elif is_orderfiller:
                     Params.Access.set_access_level("order_filler")
-                    log_access(user_id, "Access Granted (order_filler)")
+                    log_access(user_id, f"/{computername}/granted/order_filler")
                     gui()
                 elif is_basic:
                     Params.Access.set_access_level("basic")
-                    log_access(user_id, "Access Granted (basic)")
+                    log_access(user_id, f"/{computername}/granted/basic")
                     gui()
                 else:
                     Params.Access.set_access_level("unauthenticated")
                     show_banner_click("Access Denied")
-                    log_access(user_id, "Access Denied")
+                    log_access(user_id, f"/{computername}/denied")
             password_field.value = ""
 
         except requests.exceptions.RequestException:
