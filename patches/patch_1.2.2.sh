@@ -1,4 +1,8 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/rollback.1.2.2 ]; then
+    if [ ! -f /home/kiosk/terminalmode ]; then
+        touch /home/kiosk/restoreguimode
+        sh /home/kiosk/Kumpe3D-python/bash_scripts/disableGUI.sh
+    fi
     {
         sudo apt-get update
         echo 44

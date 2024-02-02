@@ -1,6 +1,10 @@
 #!/bin/bash
 {
     if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2 ]; then
+        if [ ! -f /home/kiosk/terminalmode ]; then
+            touch /home/kiosk/restoreguimode
+            sh /home/kiosk/Kumpe3D-python/bash_scripts/disableGUI.sh
+        fi
         sudo apt-get update 2>/dev/null
         echo 21
         sudo apt-get install libgstreamer1.0-dev -y 2>/dev/null

@@ -1,4 +1,8 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.2.0.1 ]; then
+    if [ ! -f /home/kiosk/terminalmode ]; then
+        touch /home/kiosk/restoreguimode
+        sh /home/kiosk/Kumpe3D-python/bash_scripts/disableGUI.sh
+    fi
     {
         sudo apt-get update 2>/dev/null
         echo 49

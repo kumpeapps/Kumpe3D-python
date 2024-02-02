@@ -1,4 +1,8 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2.3 ]; then
+    if [ ! -f /home/kiosk/terminalmode ]; then
+        touch /home/kiosk/restoreguimode
+        sh /home/kiosk/Kumpe3D-python/bash_scripts/disableGUI.sh
+    fi
     {
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub > /home/kiosk/linux_signing_key.pub
         sudo install -D -o root -g root -m 644 /home/kiosk/linux_signing_key.pub /etc/apt/keyrings/linux_signing_key.pub 2>/dev/null
