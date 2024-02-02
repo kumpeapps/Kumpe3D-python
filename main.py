@@ -127,7 +127,7 @@ def main(page: ft.Page):
         # POST https://www.kumpeapps.com/api/access-log
 
         try:
-            response = requests.post(
+            _ = requests.post(
                 url=f"{Params.KumpeApps.api_url}/access-log",
                 headers={
                     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
