@@ -19,7 +19,7 @@ def main(page: ft.Page):
     )
     page.add(img_container)
 
-    def did_login(e):
+    def did_login(_):
         send_request(username_field.value, password_field.value)
         page.update()
 
