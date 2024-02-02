@@ -3,6 +3,7 @@
 if [ ! -f .cur_version ]; then
     echo "0" > .cur_version
 fi
+if [ -t 0 ]; then touch /home/kiosk/terminalmode; fi
 {
     echo 0
     echo 5
