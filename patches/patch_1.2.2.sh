@@ -1,6 +1,6 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2.2 ]; then
     {
-        sudo apt update
+        sudo apt-get update
         echo 44
         sudo apt-get install wkhtmltopdf -y
         echo 45

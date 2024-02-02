@@ -1,8 +1,8 @@
 if [ ! -f /home/kiosk/Kumpe3D-python/patches/installed.1.2.1 ]; then
     {
-        sudo apt update
+        sudo apt-get update
         echo 42
-        sudo apt install gawk -y
+        sudo apt-get install gawk -y
         echo 43
         gawk -i inplace '!/printer_enabled/' /home/kiosk/Kumpe3D-python/.env
     } | whiptail --gauge "Updating Kumpe3D Kiosk" 6 50 41
