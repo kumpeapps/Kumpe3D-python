@@ -135,7 +135,7 @@ def main(page: ft.Page):
                 data={
                     "_key": Params.KumpeApps.api_key,
                     "user_id": user_id,
-                    "referrer": "Kumpe3D-Python",
+                    "referrer": "Kumpe3D Kiosk",
                     "url": note,
                     "remote_addr": format(
                         requests.get(
