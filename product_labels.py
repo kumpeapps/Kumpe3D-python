@@ -9,7 +9,7 @@ from pyhtml2pdf import converter
 import params
 
 
-async def generate_pdf(url, pdf_path):
+def generate_pdf(url, pdf_path):
     """Generate PDF from URL"""
     converter.convert(
         url,
