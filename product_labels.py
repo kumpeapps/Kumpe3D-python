@@ -11,7 +11,7 @@ import params
 
 async def generate_pdf(url, pdf_path):
     """Generate PDF from URL"""
-    converter.convert(
+    await converter.convert(
         url,
         pdf_path,
         print_options={
