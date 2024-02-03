@@ -11,7 +11,7 @@ import params
 
 async def generate_pdf(url, pdf_path):
     """Generate PDF from URL"""
-    await converter.convert(
+    converter.convert(
         url,
         pdf_path,
         print_options={
@@ -28,11 +28,9 @@ async def generate_pdf(url, pdf_path):
 # Run the function
 def generate_label(sku: str):
     """Generate PDF Product Label"""
-    asyncio.get_event_loop().run_until_complete(
-        generate_pdf(
-            "https://www.kumpe3d.com/product_labels.php?sku=" + sku,
-            "label.pdf",
-        )
+    generate_pdf(
+        "https://www.kumpe3d.com/product_labels.php?sku=" + sku,
+        "label.pdf",
     )
 
 
