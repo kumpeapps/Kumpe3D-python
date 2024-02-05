@@ -59,6 +59,10 @@ class Params:
         """Access Permissions"""
 
         access_level = "unauthenticated"
+        user_id = ""
+        username = ""
+        email = ""
+        name = ""
         basic = False
         production = False
         orders = False

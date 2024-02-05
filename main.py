@@ -8,7 +8,8 @@ from dotenv import load_dotenv
 from gui import gui
 import logo  # pylint: disable=import-error
 from params import Params
-from ip_host import get_ip
+# from ip_host import get_ip
+from bottom_bar import bottom_bar
 
 load_dotenv()
 userid = os.getenv(key="USERID", default="")
@@ -98,34 +99,44 @@ def main(page: ft.Page):
             else:
                 subscriptions = data["subscriptions"]
                 user_id = data["user_id"]
+                email = data["email"]
+                name = data["name"]
+                Params.Access.user_id = user_id
+                Params.Access.email = email
+                Params.Access.name = name
                 is_admin = "213" in subscriptions
                 is_basic = "214" in subscriptions
                 is_orderfiller = "215" in subscriptions
                 computername=socket.gethostname()
                 if is_admin:
-                    Params.Access.set_access_level("admin")
-                    log_access(user_id, f"/{computername}/granted/admin")
-                    gui()
+                    access_granted(user_id, computername, "admin")
                 elif is_orderfiller:
-                    Params.Access.set_access_level("order_filler")
-                    log_access(user_id, f"/{computername}/granted/order_filler")
-                    gui()
+                    access_granted(user_id, computername, "order_filler")
                 elif is_basic:
-                    Params.Access.set_access_level("basic")
-                    log_access(user_id, f"/{computername}/granted/basic")
-                    gui()
+                    access_granted(user_id, computername, "basic")
                 else:
                     Params.Access.set_access_level("unauthenticated")
                     show_banner_click("Access Denied")
                     log_access(user_id, f"/{computername}/denied")
-            password_field.value = ""
+                    password_field.value = ""
 
         except requests.exceptions.RequestException:
             show_banner_click(
                 message="Unknown Error. This COULD mean you do not have an internet connection."
             )
 
+    def access_granted(user_id: str, computername: str, access_level: str):
+        """Access Granted"""
+        Params.Access.set_access_level(access_level)
+        log_access(user_id, f"/{computername}/granted/{access_level}")
+        bottom_bar(page)
+        username_field.visible = False
+        password_field.visible = False
+        submit_container.visible = False
+        password_field.value = ""
+
     def log_access(user_id: str, note: str):
+        """Send Access Log to KumpeApps SSO"""
         # POST Access Log
         # POST https://www.kumpeapps.com/api/access-log
 
@@ -151,15 +162,6 @@ def main(page: ft.Page):
         except requests.exceptions.RequestException:
             print("HTTP Request failed")
 
-
-# "Add to Stock",
-#             "Add Filament Roll",
-#             "Open Filament Roll",
-#             "Empty Filament Roll",
-#             "Production Queue",
-#             "Add to Stock & Print Label",
-#             "Print Product Label",
-#             "Print Filament Colors Card",
 def launch():
     """Initial Launch"""
     if userid == "0":
@@ -170,4 +172,4 @@ def launch():
 
 
 if __name__ == "__main__":
-    launch()
+    ft.app(target=main)
