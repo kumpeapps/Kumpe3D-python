@@ -12,13 +12,16 @@ def main(page: Page):
 
     def change_page(_):
         page.clean()
+        page.update()
         if page.route == "home":
             home.main(page)
+            page.update()
         elif page.route == "gui":
             gui()
         elif page.route == "logout":
             page.clean()
             home.main(page)
+            page.update()
 
     page.on_route_change = change_page
     page.go("home")
