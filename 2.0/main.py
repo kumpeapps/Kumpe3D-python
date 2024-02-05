@@ -16,8 +16,13 @@ def main(page: Page):
             home.main(page)
         elif page.route == "gui":
             gui()
-            
+        elif page.route == "logout":
+            page.clean()
+            home.main(page)
+
     page.on_route_change = change_page
     page.go("home")
+
+
 if __name__ == "__main__":
     flet.app(main)
