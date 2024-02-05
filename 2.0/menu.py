@@ -25,8 +25,9 @@ def load_menu(page: ft.Page):
 
     def page_change(_):
         index = page.drawer.selected_index
-
-        if index == 1:
+        if index == 0:
+            page.go("logout")
+        elif index == 1:
             page.go("gui")
 
     page.drawer = ft.NavigationDrawer(
