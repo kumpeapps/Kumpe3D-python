@@ -11,15 +11,13 @@ def main(page: Page):
     page.title = "Kumpe3D Kiosk"
 
     def change_page(_):
-        page.clean()
-        page.update()
+        # page.controls = []
         if page.route == "home":
             home.main(page)
             page.update()
         elif page.route == "gui":
             gui()
         elif page.route == "logout":
-            page.clean()
             home.main(page)
             page.update()
 
