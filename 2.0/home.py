@@ -53,7 +53,7 @@ def main(page: ft.Page):
         content=ft.ElevatedButton(text="Login", on_click=did_login),
         alignment=ft.alignment.center,
     )
-    page.views.append(ft.View("/",username_field, password_field, submit_container))
+    page.views.append(ft.View("/",[username_field, password_field, submit_container]))
     page.update()
 
     def show_banner_click(
