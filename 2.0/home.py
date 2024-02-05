@@ -16,6 +16,7 @@ userid = os.getenv(key="USERID", default="")
 
 def main(page: ft.Page):
     """Main Function"""
+    page.views.clear()
     img_container = ft.Container(
         content=ft.Image(src_base64=logo.logo_base64), alignment=ft.alignment.top_center
     )
@@ -53,7 +54,7 @@ def main(page: ft.Page):
         alignment=ft.alignment.center,
     )
     page.update()
-    page.add(username_field, password_field, submit_container)
+    page.views.append(ft.View("/",username_field, password_field, submit_container))
 
     def show_banner_click(
         message: str,

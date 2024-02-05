@@ -11,7 +11,6 @@ def main(page: Page):
     page.title = "Kumpe3D Kiosk"
 
     def change_page(_):
-        # page.controls = []
         if page.route == "home":
             home.main(page)
             page.update()
