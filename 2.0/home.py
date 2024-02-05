@@ -5,11 +5,10 @@ import socket
 import requests
 import flet as ft
 from dotenv import load_dotenv
-from gui import gui
 import logo  # pylint: disable=import-error
 from params import Params
 # from ip_host import get_ip
-# from bottom_bar import bottom_bar
+from bottom_bar import bottom_bar
 
 load_dotenv()
 userid = os.getenv(key="USERID", default="")
@@ -129,7 +128,7 @@ def main(page: ft.Page):
         """Access Granted"""
         Params.Access.set_access_level(access_level)
         log_access(user_id, f"/{computername}/granted/{access_level}")
-        gui()
+        bottom_bar(page)
         username_field.visible = False
         password_field.visible = False
         submit_container.visible = False
@@ -161,14 +160,6 @@ def main(page: ft.Page):
             )
         except requests.exceptions.RequestException:
             print("HTTP Request failed")
-
-def launch():
-    """Initial Launch"""
-    if userid == "0":
-        Params.Access.set_access_level("basic")
-        gui()
-    else:
-        ft.app(target=main)
 
 
 if __name__ == "__main__":
