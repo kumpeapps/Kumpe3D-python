@@ -10,6 +10,7 @@ from empty_roll import empty_roll
 
 def load_menu(page: ft.Page):
     """Load Side Menu"""
+    page.drawer.clean()
     gravatar = Gravatar(Params.Access.email)
     avatar = ft.CircleAvatar(
         foreground_image_url=gravatar.get_image(default="mp"),
@@ -26,9 +27,9 @@ def load_menu(page: ft.Page):
     def page_change(_):
         index = page.drawer.selected_index
         if index == 0:
-            page.go("logout")
+            page.go("home")
         elif index == 1:
-            page.go("gui")
+            page.go("logout")
 
     page.drawer = ft.NavigationDrawer(
         controls=[
@@ -38,8 +39,13 @@ def load_menu(page: ft.Page):
             ),
             ft.Container(height=12),
             ft.NavigationDrawerDestination(
+                icon_content=ft.Icon(ft.icons.HOME),
+                label="Home",
+                selected_icon_content=ft.Icon(ft.icons.HOME_OUTLINED),
+            ),
+            ft.NavigationDrawerDestination(
+                icon_content=ft.Icon(ft.icons.LOGOUT),
                 label="Logout",
-                icon=ft.icons.LOGOUT,
                 selected_icon_content=ft.Icon(ft.icons.LOGOUT_OUTLINED),
             ),
             ft.Divider(thickness=2),

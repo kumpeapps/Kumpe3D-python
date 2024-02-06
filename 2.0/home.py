@@ -8,19 +8,17 @@ from dotenv import load_dotenv
 import logo  # pylint: disable=import-error
 from params import Params
 # from ip_host import get_ip
-from bottom_bar import bottom_bar
+from menu import load_menu
 
 load_dotenv()
 userid = os.getenv(key="USERID", default="")
 
 
-def main(page: ft.Page):
+def main(page: ft.Page, active: bool = True, login: bool = False):
     """Main Function"""
-    page.views.clear()
     img_container = ft.Container(
         content=ft.Image(src_base64=logo.logo_base64), alignment=ft.alignment.top_center
     )
-    page.add(img_container)
 
     def did_login(_):
         send_request(username_field.value, password_field.value)
@@ -53,7 +51,12 @@ def main(page: ft.Page):
         content=ft.ElevatedButton(text="Login", on_click=did_login),
         alignment=ft.alignment.center,
     )
-    page.views.append(ft.View("/",[username_field, password_field, submit_container]))
+    page.controls = [img_container, username_field, password_field, submit_container]
+    img_container.visible = active
+    username_field.visible = login
+    password_field.visible = login
+    submit_container.visible = login
+
     page.update()
 
     def show_banner_click(
@@ -129,7 +132,8 @@ def main(page: ft.Page):
         """Access Granted"""
         Params.Access.set_access_level(access_level)
         log_access(user_id, f"/{computername}/granted/{access_level}")
-        bottom_bar(page)
+        load_menu(page)
+        page.bottom_appbar.visible = True
         username_field.visible = False
         password_field.visible = False
         submit_container.visible = False
@@ -161,6 +165,7 @@ def main(page: ft.Page):
             )
         except requests.exceptions.RequestException:
             print("HTTP Request failed")
+
 
 
 if __name__ == "__main__":
