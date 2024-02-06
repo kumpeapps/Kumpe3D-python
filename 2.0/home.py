@@ -1,4 +1,4 @@
-"""Login Page V2"""
+"""Home/Login Page"""
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
 import socket
@@ -122,6 +122,7 @@ def main(page: ft.Page, active: bool = True, login: bool = False):
                     show_banner_click("Access Denied")
                     log_access(user_id, f"/{computername}/denied")
                     password_field.value = ""
+                    page.update()
 
         except requests.exceptions.RequestException:
             show_banner_click(
@@ -138,6 +139,7 @@ def main(page: ft.Page, active: bool = True, login: bool = False):
         password_field.visible = False
         submit_container.visible = False
         password_field.value = ""
+        page.update()
 
     def log_access(user_id: str, note: str):
         """Send Access Log to KumpeApps SSO"""

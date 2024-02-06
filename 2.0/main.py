@@ -1,15 +1,13 @@
 """Kumpe3D Kiosk"""
 
 import flet as ft
-import flet
-from flet import AppBar, ElevatedButton, Page, Text, View, colors
 import home
-from gui import gui
+import addroll
 from params import Params
 from bottom_bar import bottom_bar
 
-
-def main(page: Page):
+def main(page: ft.Page):
+    """Main Function"""
     page.title = "Kumpe3D Kiosk"
     bottom_bar(page)
 
@@ -17,9 +15,11 @@ def main(page: Page):
         page.drawer.open = False
         if page.route == "home":
             home.main(page, True)
+            addroll.main(page, False)
             page.update()
-        elif page.route == "gui":
+        elif page.route == "addroll":
             home.main(page, False)
+            addroll.main(page, True)
             page.update()
         elif page.route == "logout":
             page.bottom_appbar.visible = False
@@ -32,4 +32,4 @@ def main(page: Page):
 
 
 if __name__ == "__main__":
-    flet.app(main)
+    ft.app(main)
