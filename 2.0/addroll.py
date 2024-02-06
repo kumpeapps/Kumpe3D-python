@@ -100,6 +100,6 @@ def main(page: ft.Page, active: bool = True):
     page.controls = [text, sku, submit_container]
     text.visible = active
     sku.visible = active
-    submit_container = active
+    submit_container.visible = active
     page.update()
     sku.focus()

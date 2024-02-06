@@ -14,12 +14,12 @@ def main(page: ft.Page):
     def change_page(_):
         page.drawer.open = False
         if page.route == "home":
-            home.main(page, True)
             addroll.main(page, False)
+            home.main(page)
             page.update()
         elif page.route == "addroll":
             home.main(page, False)
-            addroll.main(page, True)
+            addroll.main(page)
             page.update()
         elif page.route == "logout":
             page.bottom_appbar.visible = False
