@@ -2,8 +2,7 @@ name: Python and Flutter Build
 
 on:
   push:
-    branches:
-      - PreProd
+    branches: [ PreProd ]
 
 jobs:
   build:
