@@ -32,25 +32,25 @@ jobs:
         flutter-version: '3.16.8' # La versión de Flutter que estás utilizando
         
     - name: 'Create env file'
-        run: |
-          touch .env
-          echo APP_ENV=dev >> .env
-          echo SERVICE_TOKEN=${{ secrets.INFISICAL_TOKEN }} >> .env
-          cat .env
+      run: |
+        touch .env
+        echo APP_ENV=dev >> .env
+        echo SERVICE_TOKEN=${{ secrets.INFISICAL_TOKEN }} >> .env
+        cat .env
 
     - name: Build with Flet
       run: |
         flet build apk --template https://github.com/KeimaSenpai/Flet-template-build.git
 
     - name: Upload artifacts
-          uses: actions/upload-artifact@v2
-          with:
-            name: package
-            path: |
-              build/
-              dist/
-              bin/
-              lib/
-              include/
-              src/
-            if-no-files-found: error
+      uses: actions/upload-artifact@v2
+      with:
+        name: package
+        path: |
+          build/
+          dist/
+          bin/
+          lib/
+          include/
+          src/
+        if-no-files-found: error
