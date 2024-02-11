@@ -3,7 +3,10 @@
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
 import pymysql
-from beepy import beep
+try:
+    from beepy import beep
+except ImportError:
+    pass
 import flet as ft
 from dotenv import load_dotenv
 from params import Params
@@ -78,9 +81,15 @@ def main(page: ft.Page, active: bool = True):
             sku.value = ""
             page.update()
             sku.focus()
-            beep(1)
+            try:
+                beep(1)
+            except NameError:
+                pass
         except (KeyError, TypeError):
-            beep(3)
+            try:
+                beep(3)
+            except NameError:
+                pass
             show_banner_click(f"Invalid SKU {sku.value}")
 
     text = ft.Text("Scan/Enter Filament ID/Manufacture Barcode to add filament roll to stock")

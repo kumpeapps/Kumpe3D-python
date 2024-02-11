@@ -1,15 +1,16 @@
 """Parameters file for Kumpe3D-Python"""
+
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
 from dotenv import load_dotenv
-import infisical
+from infisical_api import infisical_api
 
 
 load_dotenv()
 service_token = os.getenv("SERVICE_TOKEN")
 app_env = os.getenv("APP_ENV")
-creds = infisical.InfisicalClient(
-    token=service_token, site_url="https://creds.kumpeapps.com"
+creds = infisical_api(
+    service_token=service_token, infisical_url="https://creds.kumpeapps.com"
 )
 
 
@@ -20,22 +21,23 @@ class Params:
         """SQL Parameters for Web_3d User"""
 
         username = creds.get_secret(
-            "USERNAME", environment=app_env, path="/MYSQL/"
-        ).secret_value
+            secret_name="USERNAME", environment=app_env, path="/MYSQL/"
+        ).secretValue  # pylint: disable=no-member
         password = creds.get_secret(
-            "PASSWORD", environment=app_env, path="/MYSQL/"
-        ).secret_value
+            secret_name="PASSWORD", environment=app_env, path="/MYSQL/"
+        ).secretValue  # pylint: disable=no-member
         server = creds.get_secret(
-            "SERVER", environment=app_env, path="/MYSQL/"
-        ).secret_value
+            secret_name="SERVER", environment=app_env, path="/MYSQL/"
+        ).secretValue  # pylint: disable=no-member
         port = creds.get_secret(
-            "PORT", environment=app_env, path="/MYSQL/"
-        ).secret_value
+            secret_name="PORT", environment=app_env, path="/MYSQL/"
+        ).secretValue  # pylint: disable=no-member
         database = creds.get_secret(
-            "DATABASE", environment=app_env, path="/MYSQL/"
-        ).secret_value
+            secret_name="DATABASE", environment=app_env, path="/MYSQL/"
+        ).secretValue  # pylint: disable=no-member
 
-        def dict():  # pylint: disable=no-method-argument
+        @staticmethod
+        def dict():
             """returns as dictionary"""
             return {
                 "username": Params.SQL.username,
@@ -49,11 +51,11 @@ class Params:
         """KumpeApps Params"""
 
         api_url = creds.get_secret(
-            "KA_API_URL", environment=app_env, path="/KUMPEAPPS/"
-        ).secret_value
+            secret_name="KA_API_URL", environment=app_env, path="/KUMPEAPPS/"
+        ).secretValue  # pylint: disable=no-member
         api_key = creds.get_secret(
-            "KA_SSO_APIKEY", environment=app_env, path="/KUMPEAPPS/"
-        ).secret_value
+            secret_name="KA_SSO_APIKEY", environment=app_env, path="/KUMPEAPPS/"
+        ).secretValue  # pylint: disable=no-member
 
     class Access:
         """Access Permissions"""
@@ -85,7 +87,8 @@ class Params:
             "1",
         ]
 
-        def refresh():  # pylint: disable=no-method-argument
+        @staticmethod
+        def refresh():
             """Refresh Permissions"""
             if Params.Access.access_level == "unauthenticated":
                 Params.Access.basic = False
@@ -128,9 +131,10 @@ class Params:
                 Params.Access.filament_stock = False
                 Params.Access.admin = False
 
+        @staticmethod
         def set_access_level(
             access_level: str,
-        ):  # pylint: disable=no-method-argument, no-self-argument
+        ):
             """set access level and refresh"""
             Params.Access.access_level = access_level
             Params.Access.refresh()
