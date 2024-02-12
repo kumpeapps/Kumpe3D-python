@@ -20,21 +20,21 @@ class Params:
     class SQL:
         """SQL Parameters for Web_3d User"""
 
-        username = creds.get_secret(
+        username = creds.get_secret(  # pylint: disable=no-member
             secret_name="USERNAME", environment=app_env, path="/MYSQL/"
-        ).secretValue  # pylint: disable=no-member
-        password = creds.get_secret(
+        ).secretValue
+        password = creds.get_secret(  # pylint: disable=no-member
             secret_name="PASSWORD", environment=app_env, path="/MYSQL/"
-        ).secretValue  # pylint: disable=no-member
-        server = creds.get_secret(
+        ).secretValue
+        server = creds.get_secret(  # pylint: disable=no-member
             secret_name="SERVER", environment=app_env, path="/MYSQL/"
-        ).secretValue  # pylint: disable=no-member
-        port = creds.get_secret(
+        ).secretValue
+        port = creds.get_secret(  # pylint: disable=no-member
             secret_name="PORT", environment=app_env, path="/MYSQL/"
-        ).secretValue  # pylint: disable=no-member
-        database = creds.get_secret(
+        ).secretValue
+        database = creds.get_secret(  # pylint: disable=no-member
             secret_name="DATABASE", environment=app_env, path="/MYSQL/"
-        ).secretValue  # pylint: disable=no-member
+        ).secretValue
 
         @staticmethod
         def dict():
@@ -50,12 +50,12 @@ class Params:
     class KumpeApps:
         """KumpeApps Params"""
 
-        api_url = creds.get_secret(
+        api_url = creds.get_secret(  # pylint: disable=no-member
             secret_name="KA_API_URL", environment=app_env, path="/KUMPEAPPS/"
-        ).secretValue  # pylint: disable=no-member
-        api_key = creds.get_secret(
+        ).secretValue
+        api_key = creds.get_secret(  # pylint: disable=no-member
             secret_name="KA_SSO_APIKEY", environment=app_env, path="/KUMPEAPPS/"
-        ).secretValue  # pylint: disable=no-member
+        ).secretValue
 
     class Access:
         """Access Permissions"""
