@@ -17,7 +17,7 @@ userid = os.getenv(key="USERID", default="")
 def main(page: ft.Page):
     """Main Function"""
     img_container = ft.Container(
-        content=ft.Image(src_base64=logo.logo_base64), alignment=ft.alignment.top_center
+        content=ft.Image(src_base64=logo.logo_base64, height=page.height/2), alignment=ft.alignment.top_center
     )
     page.add(img_container)
 
