@@ -1,173 +1,78 @@
-"""Login Page V2"""
-import setup  # pylint: disable=unused-import, wrong-import-order
-import os
-import socket
-import requests
+"""Main Function for Kumpe3D Kiosk"""
+
+import flet_easy as fs
 import flet as ft
-from dotenv import load_dotenv
-from gui import gui
-import logo  # pylint: disable=import-error
-from params import Params
-from ip_host import get_ip
+from views.addroll import addroll
+from views.login import login
+from views.addstock import addstock
+from views.openroll import openroll
+from views.emptyroll import emptyroll
+from views.productionq import productionq
+from views.productlabel import printproductlabel
+from core.config import ConfigApp
+from core.params import Params
 
-load_dotenv()
-userid = os.getenv(key="USERID", default="")
+app = fs.FletEasy(route_init="/login", route_login="/login")
 
 
-def main(page: ft.Page):
-    """Main Function"""
-    img_container = ft.Container(
-        content=ft.Image(src_base64=logo.logo_base64, height=page.height/2), alignment=ft.alignment.top_center
+@app.login
+def login_x(page: ft.Page):
+    """Require Login Function"""
+    dlg = ft.AlertDialog(
+        title=ft.Text(
+            f"Access Denied!!!\nYou do not have access to {page.title}",
+            text_align=ft.TextAlign.CENTER,
+        ),
+        on_dismiss=lambda e: print("Dialog dismissed!"),
+        adaptive=False,
+        bgcolor=ft.colors.RED_300,
     )
-    page.add(img_container)
 
-    def did_login(_):
-        send_request(username_field.value, password_field.value)
+    def open_dlg():
+        page.dialog = dlg
+        dlg.open = True
         page.update()
 
-    password_field = ft.TextField(
-        label="Password",
-        password=True,
-        can_reveal_password=True,
-        autocorrect=False,
-        enable_suggestions=False,
-        prefix_icon=ft.icons.PASSWORD,
-        on_submit=did_login,
-    )
+    if not Params.Access.basic:
+        open_dlg()
+        return False
 
-    def username_submit(_):
-        """Activate Password Field on Submit"""
-        password_field.focus()
-
-    username_field = ft.TextField(
-        label="Username",
-        autofocus=True,
-        autocorrect=False,
-        enable_suggestions=False,
-        prefix_icon=ft.icons.PERSON,
-        on_submit=username_submit,
-    )
-
-    submit_container = ft.Container(
-        content=ft.ElevatedButton(text="Login", on_click=did_login),
-        alignment=ft.alignment.center,
-    )
-    page.update()
-    page.add(username_field, password_field, submit_container)
-
-    def show_banner_click(
-        message: str,
-        color: ft.colors = ft.colors.RED_400,
-        icon: ft.icons = ft.icons.ERROR_ROUNDED,
+    match (
+        page.title,
+        Params.Access.basic,
+        Params.Access.production,
+        Params.Access.orders,
+        Params.Access.print_labels,
+        Params.Access.filament_stock,
+        Params.Access.admin,
     ):
-        page.banner = ft.Banner(
-            bgcolor=color,
-            leading=ft.Icon(icon, color=ft.colors.RED_900, size=40),
-            content=ft.Text(message),
-            actions=[
-                ft.TextButton("Dismiss", on_click=close_banner),
-            ],
-        )
-        page.banner.open = True
-        page.update()
-
-    def close_banner(_):
-        page.banner.open = False
-        page.update()
-
-    def send_request(username: str, password: str):
-        """KumpeApps SSO Login"""
-        # Login
-        # GET https://www.kumpeapps.com/api/check-access/by-login-pass
-
-        try:
-            response = requests.get(
-                url=f"{Params.KumpeApps.api_url}/check-access/by-login-pass",
-                params={
-                    "_key": Params.KumpeApps.api_key,
-                    "login": username,
-                    "pass": password,
-                },
-                timeout=10,
-            )
-
-            data = response.json()
-            success = data["ok"]
-            if not success:
-                show_banner_click(data["msg"])
-            else:
-                subscriptions = data["subscriptions"]
-                user_id = data["user_id"]
-                is_admin = "213" in subscriptions
-                is_basic = "214" in subscriptions
-                is_orderfiller = "215" in subscriptions
-                computername=socket.gethostname()
-                if is_admin:
-                    Params.Access.set_access_level("admin")
-                    log_access(user_id, f"/{computername}/granted/admin")
-                    gui()
-                elif is_orderfiller:
-                    Params.Access.set_access_level("order_filler")
-                    log_access(user_id, f"/{computername}/granted/order_filler")
-                    gui()
-                elif is_basic:
-                    Params.Access.set_access_level("basic")
-                    log_access(user_id, f"/{computername}/granted/basic")
-                    gui()
-                else:
-                    Params.Access.set_access_level("unauthenticated")
-                    show_banner_click("Access Denied")
-                    log_access(user_id, f"/{computername}/denied")
-            password_field.value = ""
-
-        except requests.exceptions.RequestException:
-            show_banner_click(
-                message="Unknown Error. This COULD mean you do not have an internet connection."
-            )
-
-    def log_access(user_id: str, note: str):
-        # POST Access Log
-        # POST https://www.kumpeapps.com/api/access-log
-
-        try:
-            _ = requests.post(
-                url=f"{Params.KumpeApps.api_url}/access-log",
-                headers={
-                    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-                },
-                data={
-                    "_key": Params.KumpeApps.api_key,
-                    "user_id": user_id,
-                    "referrer": "Kumpe3D Kiosk",
-                    "url": note,
-                    "remote_addr": format(
-                        requests.get(
-                            "https://api.ipify.org", timeout=10
-                        ).content.decode("utf8")
-                    ),
-                },
-                timeout=10,
-            )
-        except requests.exceptions.RequestException:
-            print("HTTP Request failed")
+        case (_, _, _, _, _, _, True):
+            return True
+        case ("Add Filament Roll", True, _, _, _, _, _):
+            return True
+        case ("Empty Filament Roll", True, _, _, _, True, _):
+            return True
+        case ("Open Filament Roll", True, _, _, _, True, _):
+            return True
+        case ("Add To Stock", True, True, _, _, _, _):
+            return True
+        case ("Production Queue", True, True, _, _, _, _):
+            return True
+        case ("Production Queue", True, _, True, _, _, _):
+            return True
+        case ("Add to Stock & Print Label", True, True, _, True, _, _):
+            return True
+        case ("Print Product Label", True, _, _, True, _, _):
+            return True
+        case ("Print Filament Colors Card", True, _, _, True, _, True):
+            return True
+    return False
 
 
-# "Add to Stock",
-#             "Add Filament Roll",
-#             "Open Filament Roll",
-#             "Empty Filament Roll",
-#             "Production Queue",
-#             "Add to Stock & Print Label",
-#             "Print Product Label",
-#             "Print Filament Colors Card",
-def launch():
-    """Initial Launch"""
-    if userid == "0":
-        Params.Access.set_access_level("basic")
-        gui()
-    else:
-        ft.app(target=main)
+app.add_pages(
+    [login, addstock, addroll, openroll, emptyroll, productionq, printproductlabel]
+)
+ConfigApp(app)
 
-
-if __name__ == "__main__":
-    launch()
+# We run the application
+app.run()
