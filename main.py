@@ -37,35 +37,54 @@ def login_x(page: ft.Page):
         open_dlg()
         return False
 
-    match (
-        page.title,
-        Params.Access.basic,
-        Params.Access.production,
-        Params.Access.orders,
-        Params.Access.print_labels,
-        Params.Access.filament_stock,
-        Params.Access.admin,
-    ):
-        case (_, _, _, _, _, _, True):
-            return True
-        case ("Add Filament Roll", True, _, _, _, _, _):
-            return True
-        case ("Empty Filament Roll", True, _, _, _, True, _):
-            return True
-        case ("Open Filament Roll", True, _, _, _, True, _):
-            return True
-        case ("Add To Stock", True, True, _, _, _, _):
-            return True
-        case ("Production Queue", True, True, _, _, _, _):
-            return True
-        case ("Production Queue", True, _, True, _, _, _):
-            return True
-        case ("Add to Stock & Print Label", True, True, _, True, _, _):
-            return True
-        case ("Print Product Label", True, _, _, True, _, _):
-            return True
-        case ("Print Filament Colors Card", True, _, _, True, _, True):
-            return True
+    match page.title:
+        case "Add Filament Roll":
+            if Params.Access.basic:
+                return True
+            else:
+                return False
+        case "Empty Filament Roll" | "Open Filament Roll":
+            if Params.Access.basic and Params.Access.filament_stock:
+                return True
+            elif Params.Access.admin:
+                return True
+            else:
+                return False
+        case "Add To Stock":
+            if Params.Access.admin:
+                return True
+            elif Params.Access.basic and Params.Access.production:
+                return True
+            else:
+                return False
+        case "Production Queue":
+            if Params.Access.admin:
+                return True
+            elif Params.Access.basic and Params.Access.production:
+                return True
+            elif Params.Access.basic and Params.Access.orders:
+                return True
+            else:
+                return False
+        case "Add to Stock & Print Label":
+            if Params.Access.basic and Params.Access.print_labels:
+                if Params.Access.admin:
+                    return True
+                elif Params.Access.production:
+                    return True
+            return False
+        case "Print Product Label":
+            if Params.Access.basic and Params.Access.print_labels:
+                if Params.Access.admin:
+                    return True
+                elif Params.Access.production:
+                    return True
+            return False
+        case "Print Filament Colors Card":
+            if Params.Access.basic and Params.Access.print_labels:
+                if Params.Access.admin:
+                    return True
+            return False
     return False
 
 
