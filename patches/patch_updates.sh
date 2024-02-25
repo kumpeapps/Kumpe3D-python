@@ -13,4 +13,6 @@ bash /home/kiosk/Kumpe3D-python/patches/patch_2.0.sh
 
 #49-50
 bash /home/kiosk/Kumpe3D-python/patches/patch_2.0.1.sh
+
+#51-65
 bash /home/kiosk/Kumpe3D-python/patches/patch_2.1.sh
